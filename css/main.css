@@ -35,3 +35,21 @@ h1{
     width: 1133px;
     margin-top: 120px;
 }
+.relogio{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: #75B79E;
+    position: absolute;
+    top: 16px;
+    right: 16px;
+}
+.tentativas{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: #75B79E;
+    position: absolute;
+    top: 40px;
+    right: 16px;
+}

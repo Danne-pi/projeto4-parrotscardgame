@@ -33,3 +33,6 @@
 .selected .front-face {
   transform: rotateY(-180deg);
 }
+.unclickable{
+  pointer-events: none;
+}

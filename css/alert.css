@@ -56,12 +56,24 @@
 .box-container .btns{
     margin-top: 10px;
 }
+.box-container .btns2{
+    margin: auto;
+    margin-top: 30px;
+}
 .box-container .btns button{
     height: 50px;
     width: 50px;
     border-radius: 7px;
     cursor: pointer;
     background-color: #32B72F;
+    color: white;
+}
+.box-container .btns2 button{
+    margin: auto;
+    height: 30px;
+    width: 150px;
+    border-radius: 7px;
+    cursor: pointer;
     color: white;
 }
 .shadow{
@@ -72,4 +84,10 @@
     height: 100%;
     z-index: 98;
     background-color: rgba(0, 0, 0, 0.65);
+}
+.cancelbtn{
+    background-color: gray;
+}
+.confirmbtn{
+    background-color: #32B72F;
 }

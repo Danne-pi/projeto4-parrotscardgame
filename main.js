@@ -1,5 +1,5 @@
 //Seleção
-const orderContent =`
+const alertContent =`
 <div class="box-container">
 <h1>Escolha!</h1>
 <div class="content">
@@ -21,7 +21,7 @@ function firstAlert(){
     create.classList.add("my-alert");
     document.body.appendChild(create);
     const message = document.querySelector(".my-alert");
-    message.innerHTML = orderContent;
+    message.innerHTML = alertContent;
     const create2 = document.createElement("div");
     create2.classList.add("shadow");
     document.body.appendChild(create2);
@@ -38,14 +38,22 @@ firstAlert();
 let maxPoints
 let cardNum
 let cardList = []
+let cancelinterval
 function btnSelect(){
     cardNum = Number(this.innerHTML);
     maxPoints = cardNum/2;
     console.log(maxPoints);
-    document.querySelector(".shadow").remove();
-    document.querySelector(".my-alert").remove();
+    const alerts = document.querySelectorAll(".my-alert");
+    alerts.forEach(alert =>{
+        alert.remove();
+    })
+    const shadows = document.querySelectorAll(".shadow");
+    shadows.forEach(shadow =>{
+        shadow.remove();
+    })
     createListOfCards();
-    drawCards();
+    drawCards();    
+    cancelinterval = setInterval(incrementSeconds, 1000);
 }
 function createListOfCards(){
     for (let i = 0; i < cardNum; i++) {
@@ -53,7 +61,7 @@ function createListOfCards(){
         const card = document.createElement("div");
         card.classList.add("card");
         card.classList.add("c"+number);
-        card.addEventListener("click", cardClick)
+        card.addEventListener("click", cardClick);
         card.id = "c"+i;
         card.innerHTML = `
         <div class="front-face face">
@@ -73,15 +81,17 @@ function drawCards(){
     cardList.sort(comparador);
     cardspace = document.querySelector(".card-wrapper")
     for (let i = 0; i < cardList.length; i++) {
-        cardspace.appendChild(cardList[i])    
+        cardspace.appendChild(cardList[i]);
     }
 }
 //Lógica
-let mycards = []
+let mycards = [];
+let seconds = 0;
 let points = 0;
+let tried = 0;
 function cardClick(){
     this.classList.add("selected");
-    this.removeEventListener("click", cardClick)
+    this.removeEventListener("click", cardClick);
     if(mycards.length<1){
         mycards.push(document.querySelector("#"+this.id));
     }
@@ -89,16 +99,34 @@ function cardClick(){
         mycards.push(document.querySelector("#"+this.id));
     }
     if(mycards.length == 2){
+        tried += 1;
+        document.querySelector(".tentativas").innerHTML = tried+" tentativas"
         for (let i = 0; i < cardList.length; i++) {
-            const card = document.querySelector("#c"+i)
-            card.removeEventListener("click", cardClick)
+            const card = document.querySelector("#c"+i);
+            card.removeEventListener("click", cardClick);
         }
         if(mycards[0].classList[1] === mycards[1].classList[1]){
-            points = points+1;
+            points += 1;
+            mycards[0].classList.add("unclickable");
+            mycards[1].classList.add("unclickable");
             mycards = [];
-            console.log(points)
+            console.log(points);
             if(points == maxPoints){
-                console.log("you WIN")
+                console.log("you WIN");
+                clearInterval(cancelinterval);
+                scndAlertContent =`
+                <div class="box-container">
+                <h1>Parabéns!!!</h1>
+                <div class="content">
+                    <h2>Você ganhou em ${seconds} segundos e ${tried} tentativas!</h2> 
+                </div>
+                <div class="btns2">
+                    <button class="confirmbtn">Jogar novamente</button>
+                    <button class="cancelbtn">Cancelar</button>
+                </div>
+                </div>
+                `;
+                scndAlert();
             }
             for (let i = 0; i < cardList.length; i++) {
                 const card = document.querySelector("#c"+i)
@@ -110,6 +138,7 @@ function cardClick(){
         }
     }
 }
+
 function returnToBlank(){
     for (let i = 0; i < 2; i++) {
         mycards[i].classList.remove("selected");
@@ -121,4 +150,42 @@ function returnToBlank(){
     mycards = [];
 }
 
-//Lógica Jogo
+function incrementSeconds() {
+    relogio = document.querySelector(".relogio")
+    seconds += 1;
+    relogio.innerText = seconds + " segundos";
+}
+
+let scndAlertContent;
+function scndAlert(){
+    const create = document.createElement("div");   
+    create.classList.add("my-alert");
+    document.body.appendChild(create);
+    const message = document.querySelector(".my-alert");
+    message.innerHTML = scndAlertContent;
+    const create2 = document.createElement("div");
+    create2.classList.add("shadow");
+    document.body.appendChild(create2);
+    const confirm = document.querySelector(".confirmbtn");
+    confirm.addEventListener("click", restartAll)
+    // const cancel = document.querySelector(".cancelbtn");
+    // cancel.addEventListener("click", cancelation)
+    
+}
+
+function clearAll(){
+    cardList = []
+    mycards = [];
+    seconds = 0;
+    points = 0;
+    tried = 0;
+    const removeList = document.querySelectorAll(".card");
+    for (let i = 0; i < removeList.length; i++) {
+        removeList[i].remove();
+    }    
+}
+
+function restartAll(){
+    clearAll();
+    firstAlert();
+}

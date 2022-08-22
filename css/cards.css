@@ -2,12 +2,13 @@
     width: 117px;
     height: 146px;
     position: relative;
-    margin-inline: 30px;
-    margin-block: 30px;
+    margin-inline: 26px;
+    margin-block: 26px;
 }
 .card img{
     width: 100px;
     height: 100px;
+    object-fit: cover;
 }
 .face {
   width: 100%;

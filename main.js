@@ -63,10 +63,10 @@ function createListOfCards(){
         card.id = "c"+i;
         card.innerHTML = `
         <div class="front-face face">
-            <img src="assets/front.png" alt="">
+            <img src="./assets/front.png" alt="">
         </div>
         <div class="back-face face">
-            <img src="assets/parrot${number}.gif" alt="">
+            <img src="./assets/parrot${number}.gif" alt="">
         </div>
         `;
         cardList.push(card);

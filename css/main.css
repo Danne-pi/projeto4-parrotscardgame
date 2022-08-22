@@ -27,6 +27,7 @@ h1{
     top: 40px;
     left: 50%;
     transform: translateX(-50%);
+    text-align: center;
 }
 .card-wrapper{
     display: flex;
@@ -76,6 +77,5 @@ h1{
     }
     h1{
         font-size: 36px;
-        text-align: center;
     }
 }

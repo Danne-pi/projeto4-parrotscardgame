@@ -26,7 +26,6 @@ function firstAlert(){
     create2.classList.add("shadow");
     document.body.appendChild(create2);
     const buttons = document.querySelectorAll(".btns button");
-    console.log(buttons);
     for (let i = 0; i < buttons.length; i++) {
         buttons[i].addEventListener("click", btnSelect)  
     }
@@ -42,7 +41,6 @@ let cancelinterval
 function btnSelect(){
     cardNum = Number(this.innerHTML);
     maxPoints = cardNum/2;
-    console.log(maxPoints);
     const alerts = document.querySelectorAll(".my-alert");
     alerts.forEach(alert =>{
         alert.remove();
@@ -110,9 +108,7 @@ function cardClick(){
             mycards[0].classList.add("unclickable");
             mycards[1].classList.add("unclickable");
             mycards = [];
-            console.log(points);
             if(points == maxPoints){
-                console.log("you WIN");
                 clearInterval(cancelinterval);
                 scndAlertContent =`
                 <div class="box-container">
@@ -168,9 +164,8 @@ function scndAlert(){
     document.body.appendChild(create2);
     const confirm = document.querySelector(".confirmbtn");
     confirm.addEventListener("click", restartAll)
-    // const cancel = document.querySelector(".cancelbtn");
-    // cancel.addEventListener("click", cancelation)
-    
+    const cancel = document.querySelector(".cancelbtn");
+    cancel.addEventListener("click", cancelation)    
 }
 
 function clearAll(){
@@ -183,9 +178,34 @@ function clearAll(){
     for (let i = 0; i < removeList.length; i++) {
         removeList[i].remove();
     }    
+    document.querySelector(".relogio").innerHTML="0 segundos";
+    document.querySelector(".tentativas").innerHTML="0 tentativas";
 }
 
 function restartAll(){
     clearAll();
     firstAlert();
+}
+let playSound = () => new Audio("./assets/mu.mp3").play();
+function cancelation(){
+    clearAll();
+    document.querySelector(".relogio").innerHTML="";
+    document.querySelector(".tentativas").innerHTML="";
+    document.querySelector("body h1").innerHTML="";
+    const alerts = document.querySelectorAll(".my-alert");
+    alerts.forEach(alert =>{
+        alert.remove();
+    })
+    const shadows = document.querySelectorAll(".shadow");
+    shadows.forEach(shadow =>{
+        shadow.remove();
+    })
+    const create = document.createElement("div");
+    create.classList.add("byebyer");
+    create.innerHTML = `
+    <img src="./assets/parrot1.gif"></img>
+    <h1>Então até a próxima!</h1>
+    `;
+    document.body.appendChild(create);
+    playSound();
 }

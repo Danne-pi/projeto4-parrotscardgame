@@ -67,3 +67,15 @@ h1{
     left: 50%;
     transform: translateX(-50%);
 }
+@media (max-width: 1100px){
+    .relogio{
+        display: none;
+    }
+    .tentativas{
+        display: none;
+    }
+    h1{
+        font-size: 36px;
+        text-align: center;
+    }
+}
